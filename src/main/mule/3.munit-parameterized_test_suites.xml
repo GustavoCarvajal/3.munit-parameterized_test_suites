@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="globalFlow" doc:id="6dc5c314-f255-46e8-a6a0-b62bfd0cbb7e" >
+		<http:listener doc:name="Listener" doc:id="ac36e477-fcaf-4215-ae02-99d67c93a212" config-ref="HTTP_Listener_config" path="/fullName" allowedMethods="GET" />
+		<set-payload value='#[%dw 2.0&#10;output application/json&#10;---&#10;{&#10;	"fullName": Mule::p("firstName") ++ " " ++ Mule::p("lastName")&#10;	&#10;}]' doc:name="Set Payload" doc:id="71eeaf04-2cbb-4891-9e0e-f868147e8a08" />
+		<logger level="INFO" doc:name="Log PAYLOAD" doc:id="085835de-8b10-4c08-b549-ad0623a42ba9" message="#[%dw 2.0&#10;output application/json&#10;---&#10;payload]" />
+		<logger level="INFO" doc:name="Log END" doc:id="823d749d-2259-4c02-a01d-b7257e047f59" message='#["LOG END"]' />
+	</flow>
+</mule>
